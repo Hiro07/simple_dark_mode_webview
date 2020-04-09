@@ -17,34 +17,34 @@ class SimpleDarkModeAdaptableWebView extends StatefulWidget {
 
         // for WebView
         this.initialUrl,
-        this.javascriptMode,
+        this.javascriptMode = JavascriptMode.disabled,
         this.javascriptChannels,
         this.navigationDelegate,
         this.gestureRecognizers,
         this.onPageStarted,
         this.onPageFinished,
-        this.debuggingEnabled,
-        this.gestureNavigationEnabled,
+        this.debuggingEnabled = false,
+        this.gestureNavigationEnabled = false,
         this.userAgent,
-        this.initialMediaPlaybackPolicy,
+        this.initialMediaPlaybackPolicy =
+            AutoMediaPlaybackPolicy.require_user_action_for_all_media_types,
 
         // for Uri.dataFromString()
-        this.base64,
+        // expecting the string is HTML.
+        this.mimeType = 'text/html',
         this.encoding,
-        this.htmlEncoding,
-        this.mimeType,
         this.parameters,
+        this.base64 = false,
       }
       ) : super(key: key);
 
   /// raw HTML text
   final String htmlString;
 
-  final bool base64;
-  final Encoding encoding;
-  final htmlEncoding;
   final String mimeType;
+  final Encoding encoding;
   final Map<String, String> parameters;
+  final bool base64;
 
   final String initialUrl;
   final JavascriptMode javascriptMode;
