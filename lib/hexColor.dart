@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-// HEX(16進数)対応カラークラス
 extension HexColor on Color {
   /// String is in the format "aabbcc" or "ffaabbcc" with an optional leading "#".
   static Color fromHex(String hexString) {
@@ -11,7 +10,8 @@ extension HexColor on Color {
   }
 
   /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
-  String toHex({bool leadingHashSign = true, bool outputAlpha = false}) => '${leadingHashSign ? '#' : ''}'
+  String toHex({bool leadingHashSign = true, bool outputAlpha = false}) =>
+      '${leadingHashSign ? '#' : ''}'
       '${outputAlpha ? alpha.toRadixString(16).padLeft(2, '0') : ''}'
       '${red.toRadixString(16).padLeft(2, '0')}'
       '${green.toRadixString(16).padLeft(2, '0')}'
