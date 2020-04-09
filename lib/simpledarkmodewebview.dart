@@ -1,4 +1,4 @@
-library simpledarkmodewebview;
+library simple_dark_mode_webview;
 
 import 'dart:convert';
 
