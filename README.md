@@ -1,6 +1,6 @@
 # simpledarkmodewebview
 
-simple implementation of dark mode or dark theme, just for raw HTML text.
+A simple implementation of dark mode or dark theme webview, just for raw HTML text only.
 
 ## Getting Started
 
