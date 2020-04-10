@@ -2,4 +2,7 @@
 * Releasing first version.
 
 ## [0.0.2] - 2020.04.10
-* Adjusting initial values and comments.
+* Adjusted initial values and comments.
+
+## [0.1.0] - 2020.04.10
+* Release public version and responded to health issues.
