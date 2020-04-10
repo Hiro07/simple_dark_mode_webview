@@ -1,3 +1,6 @@
+## [0.1.2] - 2020.04.11
+* Responded to health issues.
+
 ## [0.1.1] - 2020.04.11
 * Responded to health issues.
 
