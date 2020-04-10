@@ -19,6 +19,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      // You need to set darkTheme here!
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.green,
+      ),
       home: MyHomePage(title: 'Simple Dark Mode Webview Demo'),
     );
   }
