@@ -9,34 +9,31 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'hexColor.dart';
 
 class SimpleDarkModeAdaptableWebView extends StatefulWidget {
-
   SimpleDarkModeAdaptableWebView(
-      this.htmlString,
-      {
-        Key key,
+    this.htmlString, {
+    Key key,
 
-        // for WebView
-        this.initialUrl,
-        this.javascriptMode = JavascriptMode.disabled,
-        this.javascriptChannels,
-        this.navigationDelegate,
-        this.gestureRecognizers,
-        this.onPageStarted,
-        this.onPageFinished,
-        this.debuggingEnabled = false,
-        this.gestureNavigationEnabled = false,
-        this.userAgent,
-        this.initialMediaPlaybackPolicy =
-            AutoMediaPlaybackPolicy.require_user_action_for_all_media_types,
+    // for WebView
+    this.initialUrl,
+    this.javascriptMode = JavascriptMode.disabled,
+    this.javascriptChannels,
+    this.navigationDelegate,
+    this.gestureRecognizers,
+    this.onPageStarted,
+    this.onPageFinished,
+    this.debuggingEnabled = false,
+    this.gestureNavigationEnabled = false,
+    this.userAgent,
+    this.initialMediaPlaybackPolicy =
+        AutoMediaPlaybackPolicy.require_user_action_for_all_media_types,
 
-        // for Uri.dataFromString()
-        // expecting the string is HTML.
-        this.mimeType = 'text/html',
-        this.encoding,
-        this.parameters,
-        this.base64 = false,
-      }
-      ) : super(key: key);
+    // for Uri.dataFromString()
+    // expecting the string is HTML.
+    this.mimeType = 'text/html',
+    this.encoding,
+    this.parameters,
+    this.base64 = false,
+  }) : super(key: key);
 
   /// raw HTML text
   final String htmlString;
@@ -65,7 +62,6 @@ class SimpleDarkModeAdaptableWebView extends StatefulWidget {
 class _WebViewState extends State<SimpleDarkModeAdaptableWebView> {
   @override
   Widget build(BuildContext context) {
-
     // Adapting LIGHT or DARK mode of the device to HTML.
     // Using canvasColor for background color, and textTheme for foreground(font color).
     // Simply adding CSS for <body>'s background-color, and overwrite <body> tag with theme color.
@@ -74,28 +70,30 @@ class _WebViewState extends State<SimpleDarkModeAdaptableWebView> {
         '<body text="${Theme.of(context).textTheme.bodyText2.color.toHex()}" >'
         '${widget.htmlString}'
         '</body>';
+    Theme.of(context).textTheme.body1;
 
     return WebView(
-        onWebViewCreated: (WebViewController webViewController) async {
-          // return the uri data from raw html string.
-          await _loadHtmlFromString(webViewController, htmlString);
-        },
-        initialUrl: widget.initialUrl,
-        javascriptMode: widget.javascriptMode,
-        javascriptChannels: widget.javascriptChannels,
-        navigationDelegate: widget.navigationDelegate,
-        gestureRecognizers: widget.gestureRecognizers,
-        onPageStarted: widget.onPageStarted,
-        onPageFinished: widget.onPageFinished,
-        debuggingEnabled: widget.debuggingEnabled,
-        gestureNavigationEnabled: widget.gestureNavigationEnabled,
-        userAgent: widget.userAgent,
-        initialMediaPlaybackPolicy: widget.initialMediaPlaybackPolicy,
+      onWebViewCreated: (WebViewController webViewController) async {
+        // return the uri data from raw html string.
+        await _loadHtmlFromString(webViewController, htmlString);
+      },
+      initialUrl: widget.initialUrl,
+      javascriptMode: widget.javascriptMode,
+      javascriptChannels: widget.javascriptChannels,
+      navigationDelegate: widget.navigationDelegate,
+      gestureRecognizers: widget.gestureRecognizers,
+      onPageStarted: widget.onPageStarted,
+      onPageFinished: widget.onPageFinished,
+      debuggingEnabled: widget.debuggingEnabled,
+      gestureNavigationEnabled: widget.gestureNavigationEnabled,
+      userAgent: widget.userAgent,
+      initialMediaPlaybackPolicy: widget.initialMediaPlaybackPolicy,
     );
   }
 
   /// load HTML from string
-  Future _loadHtmlFromString(WebViewController controller, String htmlText) async {
+  Future _loadHtmlFromString(
+      WebViewController controller, String htmlText) async {
     await controller.loadUrl(Uri.dataFromString(
       // pass the HTML
       htmlText,
@@ -106,5 +104,4 @@ class _WebViewState extends State<SimpleDarkModeAdaptableWebView> {
       parameters: widget.parameters,
     ).toString());
   }
-
 }

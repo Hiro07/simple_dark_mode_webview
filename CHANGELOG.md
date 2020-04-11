@@ -1,3 +1,8 @@
+## [0.1.3] - 2020.04.11
+* Changed Flutter's minimum version from 1.12.13+hotfix.8 to 1.17.0
+* Because [Theme.of(context).textTheme.body1] is deprecated with Flutter 1.17.0,
+* and [Theme.of(context).textTheme.bodyText2] isn't defined for the class 'TextTheme' with Flutter 1.12.13.
+
 ## [0.1.2] - 2020.04.11
 * Responded to health issues.
 
