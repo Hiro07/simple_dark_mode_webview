@@ -1,3 +1,7 @@
+## [0.1.3+2] - 2020.04.11
+* Revert Flutter's minimum version from 1.17.0 to 1.12.13+hotfix.8
+* and use [Theme.of(context).textTheme.body1] as long as it can be used.
+
 ## [0.1.3] - 2020.04.11
 * Changed Flutter's minimum version from 1.12.13+hotfix.8 to 1.17.0
 * Because [Theme.of(context).textTheme.body1] is deprecated with Flutter 1.17.0,

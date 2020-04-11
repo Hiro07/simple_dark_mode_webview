@@ -67,10 +67,14 @@ class _WebViewState extends State<SimpleDarkModeAdaptableWebView> {
     // Simply adding CSS for <body>'s background-color, and overwrite <body> tag with theme color.
     var htmlString =
         '<style>body { background-color: ${Theme.of(context).canvasColor.toHex()}; } </style>'
-        '<body text="${Theme.of(context).textTheme.bodyText2.color.toHex()}" >'
+        // [Theme.of(context).textTheme.body1] is deprecated with Flutter 1.17.0,
+        // [Theme.of(context).textTheme.bodyText2] isn't defined for the class 'TextTheme' with Flutter 1.12.13.
+        // Even though above, pub.dev's [pana] use Flutter 1.12.13 then my score is ZERO!
+        // So I stand deprecated code until I find the solution...
+        //'<body text="${Theme.of(context).textTheme.bodyText2.color.toHex()}" >'
+        '<body text="${Theme.of(context).textTheme.body1.color.toHex()}" >'
         '${widget.htmlString}'
         '</body>';
-    Theme.of(context).textTheme.body1;
 
     return WebView(
       onWebViewCreated: (WebViewController webViewController) async {
