@@ -1,3 +1,7 @@
+## [0.1.4+1] - 2020.05.25
+* Changed to [Theme.of(context).textTheme.bodyText2],
+* As pub.dev has warned 'body1' is deprecated, finally.
+
 ## [0.1.3+2] - 2020.04.11
 * Revert Flutter's minimum version from 1.17.0 to 1.12.13+hotfix.8
 * and use [Theme.of(context).textTheme.body1] as long as it can be used.

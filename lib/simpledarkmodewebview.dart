@@ -71,8 +71,10 @@ class _WebViewState extends State<SimpleDarkModeAdaptableWebView> {
         // [Theme.of(context).textTheme.bodyText2] isn't defined for the class 'TextTheme' with Flutter 1.12.13.
         // Even though above, pub.dev's [pana] use Flutter 1.12.13 then my score is ZERO!
         // So I stand deprecated code until I find the solution...
-        //'<body text="${Theme.of(context).textTheme.bodyText2.color.toHex()}" >'
-        '<body text="${Theme.of(context).textTheme.body1.color.toHex()}" >'
+        //'<body text="${Theme.of(context).textTheme.body1.color.toHex()}" >'
+        // 2020.05.25 pub.dev starts warning below finally. so I change 'body1' to 'bodyText2'.
+        // -- 'body1' is deprecated and shouldn't be used. This is the term used in the 2014 version of material design. The modern term is bodyText2. This feature was deprecated after v1.13.8..
+        '<body text="${Theme.of(context).textTheme.bodyText2.color.toHex()}" >'
         '${widget.htmlString}'
         '</body>';
 
