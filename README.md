@@ -1,6 +1,7 @@
 # simple_dark_mode_webview
 
-A simple implementation of dark mode or dark theme webview, just for raw HTML text only.
+A simple implementation of dark mode or dark theme webview.
+The idea is very simple, this webview wraps the whole html text with a dark mode &lt;body&gt; tag.
 
 ## Getting Started
 

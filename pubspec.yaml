@@ -1,11 +1,11 @@
 name: simple_dark_mode_webview
-description: A simple implementation of dark mode or dark theme webview, just for raw HTML text only.
-version: 0.1.4+1
+description: A simple implementation of dark mode or dark theme webview. The idea is very simple, this webview wraps the whole html text with a dark mode <body> tag.
+version: 0.2.0-nullsafety.1
 homepage: https://hilog07.blogspot.com/
 repository: https://github.com/Hiro07/simple_dark_mode_webview
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0-0 <3.0.0"
   # pub.dev say "ERR: The current Flutter SDK version is 1.12.13+hotfix.8. ... version solving failed."
   #flutter: ">=1.17.0"
 
@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  webview_flutter: ^0.3.19+9
+  webview_flutter: ^2.0.8
 
 dev_dependencies:
   flutter_test:

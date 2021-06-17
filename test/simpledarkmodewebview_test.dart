@@ -15,8 +15,8 @@ void main() {
     final htmlString = 'hello.<br>good bye.<br>';
     await tester.pumpWidget(SimpleDarkModeAdaptableWebView(htmlString));
 
-    final hellotFinder = find.text('hello');
-    final goodbyeFinder = find.text('good bye');
+    //final hellotFinder = find.text('hello');
+    //final goodbyeFinder = find.text('good bye');
 
     // Use the `findsOneWidget` matcher provided by flutter_test to verify
     // that the Text widgets appear exactly once in the widget tree.

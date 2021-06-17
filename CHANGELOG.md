@@ -1,3 +1,9 @@
+## [0.2.0-nullsafety.1] - 2021.06.17
+* Migration to null-safety.
+
+## [0.1.5] - 2021.03.20
+* update webview_flutter version.
+
 ## [0.1.4+1] - 2020.05.25
 * Changed to [Theme.of(context).textTheme.bodyText2],
 * As pub.dev has warned 'body1' is deprecated, finally.

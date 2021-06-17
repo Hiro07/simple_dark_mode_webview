@@ -75,7 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         TapGestureRecognizer()
                           ..onTapDown = (tap) {
                             final snackBar = SnackBar(content: Text('Webivew was tapped down.'));
-                            Scaffold.of(context).showSnackBar(snackBar);
+                            //Scaffold.of(context).showSnackBar(snackBar);
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           }
                         )
                       ),

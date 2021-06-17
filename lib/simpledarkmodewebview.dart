@@ -1,3 +1,6 @@
+/**
+ * A simple implementation of dark mode or dark theme webview.
+ */
 library simple_dark_mode_webview;
 
 import 'dart:convert';
@@ -8,10 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'hexColor.dart';
 
+/**
+ * A simple dark-mode-compatible widget.
+ */
 class SimpleDarkModeAdaptableWebView extends StatefulWidget {
+  /**
+   * Constructor.
+   * Make a dark-mode-compatible webview.
+   */
   SimpleDarkModeAdaptableWebView(
     this.htmlString, {
-    Key key,
+    Key? key,
 
     // for WebView
     this.initialUrl,
@@ -35,30 +45,69 @@ class SimpleDarkModeAdaptableWebView extends StatefulWidget {
     this.base64 = false,
   }) : super(key: key);
 
-  /// raw HTML text
+  /**
+   * raw HTML text.
+   * This widget expects static HTML text only.
+   */
   final String htmlString;
 
-  final String mimeType;
-  final Encoding encoding;
-  final Map<String, String> parameters;
-  final bool base64;
+  /// parameter for [WebView.initialUrl]
+  final String? initialUrl;
 
-  final String initialUrl;
+  /// parameter for [WebView.javascriptMode]
   final JavascriptMode javascriptMode;
-  final Set<JavascriptChannel> javascriptChannels;
-  final NavigationDelegate navigationDelegate;
-  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers;
-  final PageStartedCallback onPageStarted;
-  final PageFinishedCallback onPageFinished;
+
+  /// parameter for [WebView.javascriptChannels]
+  final Set<JavascriptChannel>? javascriptChannels;
+
+  /// parameter for [WebView.navigationDelegate]
+  final NavigationDelegate? navigationDelegate;
+
+  /// parameter for [WebView.gestureRecognizers]
+  final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
+
+  /// parameter for [WebView.onPageStarted]
+  final PageStartedCallback? onPageStarted;
+
+  /// parameter for [WebView.onPageFinished]
+  final PageFinishedCallback? onPageFinished;
+
+  /// parameter for [WebView.debuggingEnabled]
   final bool debuggingEnabled;
+
+  /// parameter for [WebView.gestureNavigationEnabled]
   final bool gestureNavigationEnabled;
-  final String userAgent;
+
+  /// parameter for [WebView.userAgent]
+  final String? userAgent;
+
+  /// parameter for [WebView.initialMediaPlaybackPolicy]
   final AutoMediaPlaybackPolicy initialMediaPlaybackPolicy;
+
+  /**
+   * parameter for [Uri.dataFromString.mimeType]
+   */
+  final String mimeType;
+  /**
+   * parameter for [Uri.dataFromString.encoding]
+   */
+  final Encoding? encoding;
+  /**
+   * parameter for [Uri.dataFromString.parameters]
+   */
+  final Map<String, String>? parameters;
+  /**
+   * parameter for [Uri.dataFromString.base64]
+   */
+  final bool base64;
 
   @override
   _WebViewState createState() => _WebViewState();
 }
 
+/**
+ * state of web view.
+ */
 class _WebViewState extends State<SimpleDarkModeAdaptableWebView> {
   @override
   Widget build(BuildContext context) {
@@ -74,7 +123,7 @@ class _WebViewState extends State<SimpleDarkModeAdaptableWebView> {
         //'<body text="${Theme.of(context).textTheme.body1.color.toHex()}" >'
         // 2020.05.25 pub.dev starts warning below finally. so I change 'body1' to 'bodyText2'.
         // -- 'body1' is deprecated and shouldn't be used. This is the term used in the 2014 version of material design. The modern term is bodyText2. This feature was deprecated after v1.13.8..
-        '<body text="${Theme.of(context).textTheme.bodyText2.color.toHex()}" >'
+        '<body text="${Theme.of(context).textTheme.bodyText2?.color?.toHex()}" >'
         '${widget.htmlString}'
         '</body>';
 
@@ -97,7 +146,7 @@ class _WebViewState extends State<SimpleDarkModeAdaptableWebView> {
     );
   }
 
-  /// load HTML from string
+  /// [controller] loads HTML from [htmlText] using [Uri.dataFromString()] method.
   Future _loadHtmlFromString(
       WebViewController controller, String htmlText) async {
     await controller.loadUrl(Uri.dataFromString(
