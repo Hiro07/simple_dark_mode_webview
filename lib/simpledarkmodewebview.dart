@@ -1,6 +1,4 @@
-/**
- * A simple implementation of dark mode or dark theme webview.
- */
+/// A simple implementation of dark mode or dark theme webview.
 library simple_dark_mode_webview;
 
 import 'dart:convert';
@@ -11,14 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'hexColor.dart';
 
-/**
- * A simple dark-mode-compatible widget.
- */
+/// A simple dark-mode-compatible widget.
 class SimpleDarkModeAdaptableWebView extends StatefulWidget {
-  /**
-   * Constructor.
-   * Make a dark-mode-compatible webview.
-   */
+  /// Constructor.
+  /// Make a dark-mode-compatible webview.
   SimpleDarkModeAdaptableWebView(
     this.htmlString, {
     Key? key,
@@ -45,10 +39,8 @@ class SimpleDarkModeAdaptableWebView extends StatefulWidget {
     this.base64 = false,
   }) : super(key: key);
 
-  /**
-   * raw HTML text.
-   * This widget expects static HTML text only.
-   */
+  /// raw HTML text.
+  /// This widget expects static HTML text only.
   final String htmlString;
 
   /// parameter for [WebView.initialUrl]
@@ -84,30 +76,20 @@ class SimpleDarkModeAdaptableWebView extends StatefulWidget {
   /// parameter for [WebView.initialMediaPlaybackPolicy]
   final AutoMediaPlaybackPolicy initialMediaPlaybackPolicy;
 
-  /**
-   * parameter for [Uri.dataFromString.mimeType]
-   */
+  /// parameter for [Uri.dataFromString.mimeType]
   final String mimeType;
-  /**
-   * parameter for [Uri.dataFromString.encoding]
-   */
+  /// parameter for [Uri.dataFromString.encoding]
   final Encoding? encoding;
-  /**
-   * parameter for [Uri.dataFromString.parameters]
-   */
+  /// parameter for [Uri.dataFromString.parameters]
   final Map<String, String>? parameters;
-  /**
-   * parameter for [Uri.dataFromString.base64]
-   */
+  /// parameter for [Uri.dataFromString.base64]
   final bool base64;
 
   @override
   _WebViewState createState() => _WebViewState();
 }
 
-/**
- * state of web view.
- */
+/// state of web view.
 class _WebViewState extends State<SimpleDarkModeAdaptableWebView> {
   @override
   Widget build(BuildContext context) {

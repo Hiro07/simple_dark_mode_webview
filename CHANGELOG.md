@@ -1,3 +1,7 @@
+## [0.3.0] - 2022.01.12
+* update webview_flutter version.
+* and flutter & Dart's null-safety has become official.
+
 ## [0.2.0-nullsafety.1] - 2021.06.17
 * Migration to null-safety.
 
