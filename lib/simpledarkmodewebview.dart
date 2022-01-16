@@ -78,10 +78,13 @@ class SimpleDarkModeAdaptableWebView extends StatefulWidget {
 
   /// parameter for [Uri.dataFromString.mimeType]
   final String mimeType;
+
   /// parameter for [Uri.dataFromString.encoding]
   final Encoding? encoding;
+
   /// parameter for [Uri.dataFromString.parameters]
   final Map<String, String>? parameters;
+
   /// parameter for [Uri.dataFromString.base64]
   final bool base64;
 
@@ -96,8 +99,10 @@ class _WebViewState extends State<SimpleDarkModeAdaptableWebView> {
     // Adapting LIGHT or DARK mode of the device to HTML.
     // Using canvasColor for background color, and textTheme for foreground(font color).
     // Simply adding CSS for <body>'s background-color, and overwrite <body> tag with theme color.
-    var htmlString =
+    var htmlString = '<!DOCTYPE html>'
+        '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
         '<style>body { background-color: ${Theme.of(context).canvasColor.toHex()}; } </style>'
+        '</head>'
         // [Theme.of(context).textTheme.body1] is deprecated with Flutter 1.17.0,
         // [Theme.of(context).textTheme.bodyText2] isn't defined for the class 'TextTheme' with Flutter 1.12.13.
         // Even though above, pub.dev's [pana] use Flutter 1.12.13 then my score is ZERO!

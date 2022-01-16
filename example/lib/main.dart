@@ -39,7 +39,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,34 +56,33 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Expanded(
-              child: FutureBuilder(
-                future: rootBundle.loadString('lib/assets/sample_policy.html'),
-                builder: (context, snapshot) {
-                  if(!snapshot.hasData){
-                    return Text('loading...');
-                  } else {
-                    return SimpleDarkModeAdaptableWebView(
-                      snapshot.data,
+                child: FutureBuilder(
+              future: rootBundle.loadString('lib/assets/sample_policy.html'),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Text('loading...');
+                } else {
+                  return SimpleDarkModeAdaptableWebView(
+                    snapshot.data,
 
-                      // (Example) Specify the html's encoding.
-                      encoding: Encoding.getByName('utf-8'),
+                    // (Example) Specify the html's encoding.
+                    encoding: Encoding.getByName('utf-8'),
 
-                      // (Example) You can also register gestures as like the original webview.
-                      gestureRecognizers: Set()
-                        ..add(Factory<TapGestureRecognizer>(() =>
-                        TapGestureRecognizer()
-                          ..onTapDown = (tap) {
-                            final snackBar = SnackBar(content: Text('Webivew was tapped down.'));
-                            //Scaffold.of(context).showSnackBar(snackBar);
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          }
-                        )
-                      ),
-                    );
-                  }
-                },
-              )
-            )
+                    // (Example) You can also register gestures as like the original webview.
+                    gestureRecognizers: Set()
+                      ..add(Factory<TapGestureRecognizer>(
+                          () => TapGestureRecognizer()
+                            ..onTapDown = (tap) {
+                              final snackBar = SnackBar(
+                                  content: Text('Webivew was tapped down.'));
+                              //Scaffold.of(context).showSnackBar(snackBar);
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            })),
+                  );
+                }
+              },
+            ))
           ],
         ),
       ),

@@ -1,3 +1,7 @@
+## [0.3.1] - 2022.01.16
+* Add <!DOCTYPE html> and <haed><meta name="viewport"> for the new version of webview_flutter.
+* Because fonts became very small on the new webview_flutter.
+
 ## [0.3.0] - 2022.01.12
 * update webview_flutter version.
 * and flutter & Dart's null-safety has become official.

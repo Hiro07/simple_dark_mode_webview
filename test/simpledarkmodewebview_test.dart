@@ -10,7 +10,6 @@ void main() {
 //    expect(() => calculator.addOne(null), throwsNoSuchMethodError);
 //  });
   testWidgets('MyWidget has a title and message', (WidgetTester tester) async {
-
     // Create the widget by telling the tester to build it.
     final htmlString = 'hello.<br>good bye.<br>';
     await tester.pumpWidget(SimpleDarkModeAdaptableWebView(htmlString));
