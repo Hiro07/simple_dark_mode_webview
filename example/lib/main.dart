@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_dark_mode_webview/simpledarkmodewebview.dart';
@@ -30,9 +28,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -43,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title!),
       ),
       body: Center(
         child: Column(
@@ -62,24 +60,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (!snapshot.hasData) {
                   return Text('loading...');
                 } else {
-                  return SimpleDarkModeAdaptableWebView(
-                    snapshot.data,
+                  if(snapshot.data is String) {
+                    return SimpleDarkModeAdaptableWebView(
+                      snapshot.data as String,
 
-                    // (Example) Specify the html's encoding.
-                    encoding: Encoding.getByName('utf-8'),
-
-                    // (Example) You can also register gestures as like the original webview.
-                    gestureRecognizers: Set()
-                      ..add(Factory<TapGestureRecognizer>(
-                          () => TapGestureRecognizer()
-                            ..onTapDown = (tap) {
-                              final snackBar = SnackBar(
-                                  content: Text('Webivew was tapped down.'));
-                              //Scaffold.of(context).showSnackBar(snackBar);
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            })),
-                  );
+                      // (Example) Specify the html's encoding.
+                      encoding: Encoding.getByName('utf-8'),
+                    );
+                  } else {
+                    return Text('invalid data.');
+                  }
                 }
               },
             ))

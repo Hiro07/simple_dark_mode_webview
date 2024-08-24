@@ -3,8 +3,6 @@ library simple_dark_mode_webview;
 
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'hexColor.dart';
@@ -18,18 +16,7 @@ class SimpleDarkModeAdaptableWebView extends StatefulWidget {
     Key? key,
 
     // for WebView
-    this.initialUrl,
-    this.javascriptMode = JavascriptMode.disabled,
-    this.javascriptChannels,
-    this.navigationDelegate,
-    this.gestureRecognizers,
-    this.onPageStarted,
-    this.onPageFinished,
-    this.debuggingEnabled = false,
-    this.gestureNavigationEnabled = false,
-    this.userAgent,
-    this.initialMediaPlaybackPolicy =
-        AutoMediaPlaybackPolicy.require_user_action_for_all_media_types,
+    this.javascriptMode = JavaScriptMode.disabled,
 
     // for Uri.dataFromString()
     // expecting the string is HTML.
@@ -43,38 +30,8 @@ class SimpleDarkModeAdaptableWebView extends StatefulWidget {
   /// This widget expects static HTML text only.
   final String htmlString;
 
-  /// parameter for [WebView.initialUrl]
-  final String? initialUrl;
-
-  /// parameter for [WebView.javascriptMode]
-  final JavascriptMode javascriptMode;
-
-  /// parameter for [WebView.javascriptChannels]
-  final Set<JavascriptChannel>? javascriptChannels;
-
-  /// parameter for [WebView.navigationDelegate]
-  final NavigationDelegate? navigationDelegate;
-
-  /// parameter for [WebView.gestureRecognizers]
-  final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
-
-  /// parameter for [WebView.onPageStarted]
-  final PageStartedCallback? onPageStarted;
-
-  /// parameter for [WebView.onPageFinished]
-  final PageFinishedCallback? onPageFinished;
-
-  /// parameter for [WebView.debuggingEnabled]
-  final bool debuggingEnabled;
-
-  /// parameter for [WebView.gestureNavigationEnabled]
-  final bool gestureNavigationEnabled;
-
-  /// parameter for [WebView.userAgent]
-  final String? userAgent;
-
-  /// parameter for [WebView.initialMediaPlaybackPolicy]
-  final AutoMediaPlaybackPolicy initialMediaPlaybackPolicy;
+  /// parameter for [WebView.javaScriptMode]
+  final JavaScriptMode javascriptMode;
 
   /// parameter for [Uri.dataFromString.mimeType]
   final String mimeType;
@@ -110,40 +67,40 @@ class _WebViewState extends State<SimpleDarkModeAdaptableWebView> {
         //'<body text="${Theme.of(context).textTheme.body1.color.toHex()}" >'
         // 2020.05.25 pub.dev starts warning below finally. so I change 'body1' to 'bodyText2'.
         // -- 'body1' is deprecated and shouldn't be used. This is the term used in the 2014 version of material design. The modern term is bodyText2. This feature was deprecated after v1.13.8..
-        '<body text="${Theme.of(context).textTheme.bodyText2?.color?.toHex()}" >'
+        '<body text="${Theme.of(context).textTheme.bodyMedium?.color?.toHex()}" >'
         '${widget.htmlString}'
         '</body>';
 
-    return WebView(
-      onWebViewCreated: (WebViewController webViewController) async {
-        // return the uri data from raw html string.
-        await _loadHtmlFromString(webViewController, htmlString);
-      },
-      initialUrl: widget.initialUrl,
-      javascriptMode: widget.javascriptMode,
-      javascriptChannels: widget.javascriptChannels,
-      navigationDelegate: widget.navigationDelegate,
-      gestureRecognizers: widget.gestureRecognizers,
-      onPageStarted: widget.onPageStarted,
-      onPageFinished: widget.onPageFinished,
-      debuggingEnabled: widget.debuggingEnabled,
-      gestureNavigationEnabled: widget.gestureNavigationEnabled,
-      userAgent: widget.userAgent,
-      initialMediaPlaybackPolicy: widget.initialMediaPlaybackPolicy,
-    );
+    var controller = WebViewController()
+      ..setJavaScriptMode(widget.javascriptMode)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {},
+          onHttpError: (HttpResponseError error) {},
+          onWebResourceError: (WebResourceError error) {},
+          onNavigationRequest: (NavigationRequest request) {
+            // if (request.url.startsWith('https://www.youtube.com/')) {
+            //   return NavigationDecision.prevent;
+            // }
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.dataFromString(
+        // pass the HTML
+        htmlString,
+
+        mimeType: widget.mimeType,
+        encoding: widget.encoding,
+        base64: widget.base64,
+        parameters: widget.parameters,
+      ));
+
+    return WebViewWidget(controller: controller);
   }
 
-  /// [controller] loads HTML from [htmlText] using [Uri.dataFromString()] method.
-  Future _loadHtmlFromString(
-      WebViewController controller, String htmlText) async {
-    await controller.loadUrl(Uri.dataFromString(
-      // pass the HTML
-      htmlText,
-
-      mimeType: widget.mimeType,
-      encoding: widget.encoding,
-      base64: widget.base64,
-      parameters: widget.parameters,
-    ).toString());
-  }
 }

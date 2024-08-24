@@ -1,5 +1,9 @@
+## [0.3.2] - 2024.08.24
+* update Flutter, Dart, webview_flutter libraries.
+* update Android API Level.
+
 ## [0.3.1] - 2022.01.16
-* Add <!DOCTYPE html> and <haed><meta name="viewport"> for the new version of webview_flutter.
+* Add ¥<!DOCTYPE html¥> and ¥<haed¥>¥<meta name="viewport"¥> for the new version of webview_flutter.
 * Because fonts became very small on the new webview_flutter.
 
 ## [0.3.0] - 2022.01.12
