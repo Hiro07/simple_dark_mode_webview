@@ -3,6 +3,9 @@ library simple_dark_mode_webview;
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'hexColor.dart';
@@ -11,12 +14,22 @@ import 'hexColor.dart';
 class SimpleDarkModeAdaptableWebView extends StatefulWidget {
   /// Constructor.
   /// Make a dark-mode-compatible webview.
-  SimpleDarkModeAdaptableWebView(
-    this.htmlString, {
+  SimpleDarkModeAdaptableWebView(this.htmlString, {
     Key? key,
 
     // for WebView
-    this.javascriptMode = JavaScriptMode.disabled,
+    this.initialUrl,
+    this.javascriptMode = JavascriptMode.disabled,
+    this.javascriptChannels,
+    this.navigationDelegate,
+    this.gestureRecognizers,
+    this.onPageStarted,
+    this.onPageFinished,
+    this.debuggingEnabled = false,
+    this.gestureNavigationEnabled = false,
+    this.userAgent,
+    this.initialMediaPlaybackPolicy =
+        AutoMediaPlaybackPolicy.require_user_action_for_all_media_types,
 
     // for Uri.dataFromString()
     // expecting the string is HTML.
@@ -26,12 +39,42 @@ class SimpleDarkModeAdaptableWebView extends StatefulWidget {
     this.base64 = false,
   }) : super(key: key);
 
-  /// raw HTML text.
-  /// This widget expects static HTML text only.
+  // for Uri.dataFromString()
+  // expecting the string is HTML.
   final String htmlString;
 
-  /// parameter for [WebView.javaScriptMode]
-  final JavaScriptMode javascriptMode;
+  /// parameter for [WebView.initialUrl]
+  final String? initialUrl;
+
+  /// parameter for [WebView.javascriptMode]
+  final JavascriptMode javascriptMode;
+
+  /// parameter for [WebView.javascriptChannels]
+  final Set<JavascriptChannel>? javascriptChannels;
+
+  /// parameter for [WebView.navigationDelegate]
+  final NavigationDelegate? navigationDelegate;
+
+  /// parameter for [WebView.gestureRecognizers]
+  final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
+
+  /// parameter for [WebView.onPageStarted]
+  final PageStartedCallback? onPageStarted;
+
+  /// parameter for [WebView.onPageFinished]
+  final PageFinishedCallback? onPageFinished;
+
+  /// parameter for [WebView.debuggingEnabled]
+  final bool debuggingEnabled;
+
+  /// parameter for [WebView.gestureNavigationEnabled]
+  final bool gestureNavigationEnabled;
+
+  /// parameter for [WebView.userAgent]
+  final String? userAgent;
+
+  /// parameter for [WebView.initialMediaPlaybackPolicy]
+  final AutoMediaPlaybackPolicy initialMediaPlaybackPolicy;
 
   /// parameter for [Uri.dataFromString.mimeType]
   final String mimeType;
@@ -71,36 +114,36 @@ class _WebViewState extends State<SimpleDarkModeAdaptableWebView> {
         '${widget.htmlString}'
         '</body>';
 
-    var controller = WebViewController()
-      ..setJavaScriptMode(widget.javascriptMode)
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
-          onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
-          onHttpError: (HttpResponseError error) {},
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
-            // if (request.url.startsWith('https://www.youtube.com/')) {
-            //   return NavigationDecision.prevent;
-            // }
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..loadRequest(Uri.dataFromString(
-        // pass the HTML
-        htmlString,
-
-        mimeType: widget.mimeType,
-        encoding: widget.encoding,
-        base64: widget.base64,
-        parameters: widget.parameters,
-      ));
-
-    return WebViewWidget(controller: controller);
+    return WebView(
+      onWebViewCreated: (WebViewController webViewController) async {
+        // return the uri data from raw html string.
+        await _loadHtmlFromString(webViewController, htmlString);
+      },
+      initialUrl: widget.initialUrl,
+      javascriptMode: widget.javascriptMode,
+      javascriptChannels: widget.javascriptChannels,
+      navigationDelegate: widget.navigationDelegate,
+      gestureRecognizers: widget.gestureRecognizers,
+      onPageStarted: widget.onPageStarted,
+      onPageFinished: widget.onPageFinished,
+      debuggingEnabled: widget.debuggingEnabled,
+      gestureNavigationEnabled: widget.gestureNavigationEnabled,
+      userAgent: widget.userAgent,
+      initialMediaPlaybackPolicy: widget.initialMediaPlaybackPolicy,
+    );
   }
 
+  /// [controller] loads HTML from [htmlText] using [Uri.dataFromString()] method.
+  Future _loadHtmlFromString(
+      WebViewController controller, String htmlText) async {
+    await controller.loadUrl(Uri.dataFromString(
+      // pass the HTML
+      htmlText,
+
+      mimeType: widget.mimeType,
+      encoding: widget.encoding,
+      base64: widget.base64,
+      parameters: widget.parameters,
+    ).toString());
+  }
 }

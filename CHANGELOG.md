@@ -1,3 +1,7 @@
+## [0.3.3] - 2024.08.24
+* Rollback webview_flutter from 4.9.0 to 3.0.4
+* Because the changes are too many and too different.
+
 ## [0.3.2] - 2024.08.24
 * update Flutter, Dart, webview_flutter libraries.
 * update Android API Level.

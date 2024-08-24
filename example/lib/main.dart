@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_dark_mode_webview/simpledarkmodewebview.dart';
@@ -66,6 +68,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       // (Example) Specify the html's encoding.
                       encoding: Encoding.getByName('utf-8'),
+
+                      // (Example) You can also register gestures as like the original webview.
+                      gestureRecognizers: Set()
+                        ..add(Factory<TapGestureRecognizer>(
+                                () => TapGestureRecognizer()
+                              ..onTapDown = (tap) {
+                                final snackBar = SnackBar(
+                                    content: Text('Webivew was tapped down.'));
+                                //Scaffold.of(context).showSnackBar(snackBar);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              })),
                     );
                   } else {
                     return Text('invalid data.');
